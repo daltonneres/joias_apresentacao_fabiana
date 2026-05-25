@@ -253,6 +253,61 @@ body{
   font-size:14px;
 }
 
+/* TELEFONE */
+
+.telefone{
+  margin-top:12px;
+  color:#d4af37 !important;
+  font-weight:600;
+  font-size:17px;
+}
+
+/* REDES SOCIAIS */
+
+.social{
+  margin-top:25px;
+  display:flex;
+  justify-content:center;
+  gap:18px;
+}
+
+.social a{
+  width:58px;
+  height:58px;
+  border-radius:50%;
+  background:#d4af37;
+  color:#000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-decoration:none;
+  font-size:26px;
+  transition:0.3s;
+  box-shadow:0 0 20px rgba(212,175,55,0.25);
+}
+
+.social a:hover{
+  transform:translateY(-6px) scale(1.05);
+}
+
+/* DEVELOPER */
+
+.developer{
+  margin-top:30px;
+  font-size:14px;
+  color:#888 !important;
+}
+
+.developer a{
+  color:#d4af37;
+  text-decoration:none;
+  transition:0.3s;
+}
+
+.developer a:hover{
+  opacity:0.8;
+}
+
 /* RESPONSIVO */
 
 @media(max-width:768px){
@@ -269,6 +324,107 @@ body{
 
   .sobre-img img{
     width:100%;
+  }
+
+}
+
+/* ===================================
+   ANIMAÇÕES
+=================================== */
+
+.hero-content{
+  animation:fadeUp 1.2s ease;
+}
+
+.sobre-img{
+  animation:fadeLeft 1.2s ease;
+}
+
+.sobre-text{
+  animation:fadeRight 1.2s ease;
+}
+
+.card{
+  opacity:0;
+  transform:translateY(50px);
+  animation:cardAnimation 1s ease forwards;
+}
+
+/* DELAY ENTRE OS CARDS */
+
+.card:nth-child(1){
+  animation-delay:0.2s;
+}
+
+.card:nth-child(2){
+  animation-delay:0.4s;
+}
+
+.card:nth-child(3){
+  animation-delay:0.6s;
+}
+
+.card:nth-child(4){
+  animation-delay:0.8s;
+}
+
+.card:nth-child(5){
+  animation-delay:1s;
+}
+
+.footer-content{
+  animation:fadeUp 1.5s ease;
+}
+
+/* KEYFRAMES */
+
+@keyframes fadeUp{
+
+  from{
+    opacity:0;
+    transform:translateY(50px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+
+}
+
+@keyframes fadeLeft{
+
+  from{
+    opacity:0;
+    transform:translateX(-80px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateX(0);
+  }
+
+}
+
+@keyframes fadeRight{
+
+  from{
+    opacity:0;
+    transform:translateX(80px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateX(0);
+  }
+
+}
+
+@keyframes cardAnimation{
+
+  to{
+    opacity:1;
+    transform:translateY(0);
   }
 
 }
