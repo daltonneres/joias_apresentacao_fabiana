@@ -49,6 +49,7 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 110px;
+  overflow-x: hidden;
 }
 
 body {
@@ -95,6 +96,10 @@ button:focus-visible {
   padding: 26px 8%;
   background: transparent;
   transition: var(--transition), padding var(--transition);
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
 .navbar.scrolled {
@@ -245,7 +250,7 @@ button:focus-visible {
 =================================== */
 
 .hero {
-  height: 100vh;
+  min-height: 100vh;
   background: url("https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=1600&auto=format&fit=crop")
     center / cover no-repeat;
   position: relative;
@@ -253,7 +258,7 @@ button:focus-visible {
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 20px;
+  padding: 150px 20px 80px;
 }
 
 .overlay {
@@ -408,8 +413,11 @@ button:focus-visible {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
   border-radius: 20px;
-  min-width: 260px;
-  overflow: hidden;
+  width: 460px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  max-height: calc(100vh - 170px);
+  overflow-y: auto;
   opacity: 0;
   visibility: hidden;
   transition: var(--transition);
@@ -435,7 +443,7 @@ button:focus-visible {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 16px 22px;
+  padding: 14px 20px;
   color: var(--text-primary);
   text-decoration: none;
   transition: var(--transition);
@@ -443,14 +451,17 @@ button:focus-visible {
   font-size: 14px;
 }
 
-.dropdown-content a:last-child {
+.dropdown-content a:nth-child(odd) {
+  border-right: 1px solid var(--border-color);
+}
+
+.dropdown-content a:nth-last-child(-n+2) {
   border-bottom: none;
 }
 
 .dropdown-content a:hover {
   background: var(--gold);
   color: var(--text-dark);
-  padding-left: 30px;
 }
 
 .dropdown-content a i {
@@ -461,9 +472,60 @@ button:focus-visible {
 
 /* HERO RESPONSIVO */
 
+@media (max-width: 600px) {
+  .dropdown-content {
+    position: fixed;
+    left: 12px;
+    right: 12px;
+    bottom: 0;
+    top: auto;
+    transform: translateY(20px);
+    width: auto;
+    max-height: 70vh;
+    grid-template-columns: 1fr;
+    border-radius: 20px 20px 0 0;
+  }
+
+  .dropdown:hover .dropdown-content {
+    bottom: 0;
+  }
+
+  .dropdown-content.show {
+    bottom: 12px;
+    transform: translateY(0);
+  }
+
+  .dropdown-content a {
+    padding: 16px 20px;
+    font-size: 15px;
+  }
+
+  .dropdown-content a:nth-child(odd) {
+    border-right: none;
+  }
+
+  .dropdown-content a:nth-last-child(-n+2) {
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .dropdown-content a:last-child {
+    border-bottom: none;
+  }
+}
+
+@media (max-width: 600px) {
+  body.dropdown-open::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 998;
+  }
+}
+
 @media (max-width: 768px) {
   .hero {
-    padding: 40px 20px;
+    padding: 130px 20px 60px;
   }
 
   .hero h1 {
@@ -794,6 +856,18 @@ button:focus-visible {
   margin: 16px auto 0;
   opacity: 0.4;
   border-radius: 2px;
+}
+
+.categoria-subtitle {
+  display: block;
+  text-align: center;
+  font-family: var(--font-main);
+  font-size: 14px;
+  font-style: italic;
+  color: var(--text-muted);
+  letter-spacing: 0.3px;
+  margin-top: -34px;
+  margin-bottom: 50px;
 }
 
 /* DELAY ENTRE OS CARDS */
@@ -1408,14 +1482,18 @@ button:focus-visible {
   box-shadow: var(--shadow-dropdown);
   padding: 28px 34px;
   z-index: 2000;
-  display: flex;
-  align-items: center;
-  gap: 26px;
   transition: bottom 0.6s ease;
 }
 
 .cookie-banner.show {
   bottom: 24px;
+}
+
+.cookie-content {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  width: 100%;
 }
 
 .cookie-icon {
@@ -1494,9 +1572,12 @@ button:focus-visible {
     left: 14px;
     right: 14px;
     bottom: -400px;
+    padding: 24px 22px;
+  }
+
+  .cookie-content {
     flex-direction: column;
     align-items: flex-start;
-    padding: 24px 22px;
   }
 
   .cookie-banner.show {
