@@ -23,40 +23,6 @@
 <!-- ================================
      NAVBAR
 ================================= -->
-<header class="navbar" id="navbar">
-  <div class="navbar-inner">
-    <a href="index.html" class="navbar-logo">Alisson <span>de Paula</span></a>
-
-    <nav class="navbar-links">
-      <a href="index.html#sobre">Sobre</a>
-      <a href="index.html#produtos">Coleção</a>
-      <a href="index.html#depoimentos">Depoimentos</a>
-    </nav>
-
-    <a
-      href="https://wa.me/5546999253231?text=Olá,%20tudo%20bem?%20Vim%20do%20site%20e%20tenho%20interesse%20em%20ver%20quais%20as%20joias%20que%20você%20tem%20disponível."
-      class="btn navbar-cta"
-      target="_blank"
-    >
-      <i class="fa-brands fa-whatsapp"></i> Fale Conosco
-    </a>
-
-    <button class="navbar-toggle" id="navbarToggle" aria-label="Abrir menu" aria-expanded="false">
-      <i class="fa-solid fa-bars"></i>
-    </button>
-  </div>
-
-  <nav class="navbar-mobile" id="navbarMobile">
-    <a href="index.html#sobre">Sobre</a>
-    <a href="index.html#produtos">Coleção</a>
-    <a href="index.html#depoimentos">Depoimentos</a>
-    <a
-      href="https://wa.me/5546999253231?text=Olá,%20tudo%20bem?%20Vim%20do%20site%20e%20tenho%20interesse%20em%20ver%20quais%20as%20joias%20que%20você%20tem%20disponível."
-      target="_blank"
-    ><i class="fa-brands fa-whatsapp"></i> Fale Conosco</a>
-  </nav>
-</header>
-
 <!-- ================================
      CABEÇALHO DA PÁGINA LEGAL
 ================================= -->
@@ -200,6 +166,7 @@
      RODAPÉ
 ================================= -->
 <footer class="footer">
+  <div class="footer-glow" aria-hidden="true"></div>
   <div class="footer-top">
 
     <div class="footer-col footer-brand">
@@ -240,9 +207,12 @@
 
     <p class="copyright">
       © <span id="footerYear">2026</span> Alisson de Paula. Todos os direitos reservados. ·
-      Conteúdo, fotos e marca protegidos por direitos autorais ·
-      <a href="privacidade.html">Política de Privacidade</a> · Site em conformidade com a LGPD (Lei nº 13.709/2018)
+      <a href="privacidade.html">Política de Privacidade</a> · Site em conformidade com a LGPD
     </p>
+
+    <button class="cookie-preferences" id="cookiePreferences" type="button">
+      <i class="fa-solid fa-cookie-bite"></i> Preferências de cookies
+    </button>
 
     <p class="developer">
       Desenvolvido por
@@ -250,6 +220,10 @@
     </p>
   </div>
 </footer>
+
+<button class="back-to-top" id="backToTop" type="button" aria-label="Voltar ao início" title="Voltar ao início">
+  <i class="fa-solid fa-arrow-up"></i>
+</button>
 
 <!-- ================================
      BANNER DE COOKIES (LGPD)
@@ -283,43 +257,18 @@
   const footerYear = document.getElementById('footerYear');
   if (footerYear) footerYear.textContent = new Date().getFullYear();
 
-  /* --- NAVBAR: efeito ao rolar --- */
-  const navbar = document.getElementById('navbar');
-
-  function handleNavbarScroll() {
-    if (window.scrollY > 40) {
-      navbar.classList.add('scrolled');
-    } else {
-      navbar.classList.remove('scrolled');
-    }
-  }
-  handleNavbarScroll();
-  window.addEventListener('scroll', handleNavbarScroll);
-
-  /* --- NAVBAR: menu mobile --- */
-  const navbarToggle = document.getElementById('navbarToggle');
-  const navbarMobile = document.getElementById('navbarMobile');
-
-  navbarToggle.addEventListener('click', () => {
-    const isOpen = navbarMobile.classList.toggle('show');
-    navbarToggle.setAttribute('aria-expanded', isOpen);
-    navbarToggle.innerHTML = isOpen
-      ? '<i class="fa-solid fa-xmark"></i>'
-      : '<i class="fa-solid fa-bars"></i>';
-  });
-
-  navbarMobile.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      navbarMobile.classList.remove('show');
-      navbarToggle.setAttribute('aria-expanded', 'false');
-      navbarToggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
-    });
-  });
+  /* --- VOLTAR AO INÍCIO --- */
+  const backToTop = document.getElementById('backToTop');
+  window.addEventListener('scroll', () => {
+    backToTop.classList.toggle('show', window.scrollY > 520);
+  }, { passive: true });
+  backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
   /* --- BANNER DE COOKIES (LGPD) --- */
   const cookieBanner = document.getElementById('cookieBanner');
   const cookieAccept = document.getElementById('cookieAccept');
   const cookieDecline = document.getElementById('cookieDecline');
+  const cookiePreferences = document.getElementById('cookiePreferences');
   const COOKIE_KEY = 'alissonJoiasCookieConsent';
 
   function showCookieBanner() {
@@ -335,6 +284,10 @@
 
   cookieAccept.addEventListener('click', () => hideCookieBanner('accepted'));
   cookieDecline.addEventListener('click', () => hideCookieBanner('declined'));
+  cookiePreferences.addEventListener('click', () => {
+    localStorage.removeItem(COOKIE_KEY);
+    cookieBanner.classList.add('show');
+  });
 
   showCookieBanner();
 </script>

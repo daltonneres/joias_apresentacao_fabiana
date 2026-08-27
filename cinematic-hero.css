@@ -1,0 +1,363 @@
+/* =====================================================================
+   CINEMATIC HERO — Alisson de Paula Jóias (ouro 18K)
+   Adaptado do conceito "cinematic-landing-hero" (React/GSAP) para
+   HTML/CSS/JS puro, usando a paleta já definida em style.css
+   (--gold, --gold-light, --bg-primary, --font-title, --font-main).
+===================================================================== */
+
+.cinematic-hero {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-main);
+  perspective: 1500px;
+}
+
+.cinematic-hero * {
+  box-sizing: border-box;
+}
+
+.gsap-reveal { visibility: hidden; }
+
+/* Grão de filme + grid sutil (ambiente cinematográfico) */
+.ch-grain {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  pointer-events: none; z-index: 50; opacity: 0.05; mix-blend-mode: overlay;
+  background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%25" height="100%25" filter="url(%23n)"/></svg>');
+}
+
+.ch-grid {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: 0.5;
+  background-size: 60px 60px;
+  background-image:
+    linear-gradient(to right, rgba(212,175,55,0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(212,175,55,0.06) 1px, transparent 1px);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%);
+          mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%);
+}
+
+/* Texto de abertura (fora do cartão) */
+.ch-text-wrapper {
+  position: absolute; z-index: 10; width: 100vw; padding: 0 16px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; will-change: transform;
+}
+
+.ch-text-wrapper h1 {
+  font-family: var(--font-title);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  font-size: 44px;
+  line-height: 1.15;
+  margin: 0 0 6px;
+}
+
+.ch-line1 { color: var(--text-primary); text-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+
+.ch-line2 {
+  background: linear-gradient(180deg, var(--gold-light) 0%, var(--gold) 100%);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  transform: translateZ(0);
+  filter: drop-shadow(0 10px 24px rgba(212,175,55,0.25));
+}
+
+@media (min-width: 768px) {
+  .ch-text-wrapper h1 { font-size: 72px; }
+}
+@media (min-width: 1024px) {
+  .ch-text-wrapper h1 { font-size: 96px; }
+}
+
+/* CTA final (fora do cartão, revelado após o pin) */
+.ch-cta-wrapper {
+  position: absolute; z-index: 10; width: 100vw; padding: 0 16px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; pointer-events: auto; will-change: transform;
+}
+
+.ch-cta-wrapper h2 {
+  font-family: var(--font-title);
+  font-size: 34px;
+  margin: 0 0 16px;
+  background: linear-gradient(180deg, var(--gold-light) 0%, var(--gold) 100%);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+@media (min-width: 768px) { .ch-cta-wrapper h2 { font-size: 52px; } }
+
+.ch-cta-wrapper p {
+  color: var(--text-muted);
+  font-size: 16px;
+  max-width: 520px;
+  margin: 0 auto 36px;
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+.ch-cta-actions { display: flex; flex-direction: column; gap: 18px; }
+@media (min-width: 640px) { .ch-cta-actions { flex-direction: row; } }
+
+.ch-btn {
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+  padding: 16px 28px; border-radius: 20px;
+  text-decoration: none; font-family: var(--font-main);
+  transition: transform 0.4s cubic-bezier(0.25,1,0.5,1), box-shadow 0.4s cubic-bezier(0.25,1,0.5,1);
+}
+.ch-btn i { font-size: 22px; }
+.ch-btn-gold {
+  background: linear-gradient(180deg, var(--gold-light) 0%, var(--gold) 100%);
+  color: #1a1204;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.05), 0 2px 4px rgba(0,0,0,0.2), 0 12px 24px -4px rgba(212,175,55,0.35), inset 0 1px 1px rgba(255,255,255,0.6);
+}
+.ch-btn-gold:hover { transform: translateY(-3px); }
+.ch-btn-dark {
+  background: linear-gradient(180deg, #27272A 0%, #18181B 100%);
+  color: #fff;
+  box-shadow: 0 0 0 1px var(--gold-border), 0 2px 4px rgba(0,0,0,0.6), 0 12px 24px -4px rgba(0,0,0,0.9);
+}
+.ch-btn-dark:hover { transform: translateY(-3px); }
+.ch-btn-label-small { font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; opacity: 0.7; margin-bottom: -2px; display: block; }
+.ch-btn-label-big { font-size: 18px; font-weight: 700; line-height: 1; }
+
+/* Cartão físico dourado/preto que preenche a tela no scroll */
+.ch-card-layer {
+  position: absolute; inset: 0; z-index: 20;
+  display: flex; align-items: center; justify-content: center;
+  pointer-events: none; perspective: 1500px;
+}
+
+.ch-main-card {
+  position: relative; overflow: hidden; pointer-events: auto;
+  width: 92vw; height: 92vh; border-radius: 32px;
+  background: linear-gradient(145deg, #1a1204 0%, #050505 100%);
+  border: 1px solid var(--gold-border);
+  box-shadow:
+    0 40px 100px -20px rgba(0,0,0,0.9),
+    0 20px 40px -20px rgba(0,0,0,0.8),
+    inset 0 1px 2px rgba(212,175,55,0.15),
+    inset 0 -2px 4px rgba(0,0,0,0.8);
+}
+@media (min-width: 768px) {
+  .ch-main-card { width: 85vw; height: 85vh; border-radius: 40px; }
+}
+
+.ch-card-sheen {
+  position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: 50;
+  background: radial-gradient(800px circle at var(--mx, 50%) var(--my, 50%), rgba(212,175,55,0.10) 0%, transparent 40%);
+  mix-blend-mode: screen; transition: opacity 0.3s ease;
+}
+
+.ch-card-grid {
+  position: relative; width: 100%; height: 100%; max-width: 1200px; margin: 0 auto;
+  padding: 24px 16px; z-index: 10;
+  display: flex; flex-direction: column; justify-content: space-evenly; align-items: center;
+}
+@media (min-width: 1024px) {
+  .ch-card-grid {
+    display: grid; grid-template-columns: 0.8fr 1.2fr; align-items: center; gap: 64px;
+    padding: 0 72px;
+  }
+}
+
+/* Marca (dentro do cartão) */
+.ch-card-brand { order: 1; width: 100%; display: flex; justify-content: center; z-index: 20; }
+@media (min-width: 1024px) { .ch-card-brand { justify-content: flex-start; } }
+
+.ch-card-brand h2 {
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: 52px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  background: linear-gradient(180deg, #FFFFFF 0%, #d4af37 100%);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 12px 24px rgba(0,0,0,0.8));
+  margin: 0;
+}
+@media (min-width: 1024px) { .ch-card-brand h2 { font-size: 76px; } }
+
+/* Painel da coleção: ocupa o lugar do celular e mantém a navegação na mesma cena. */
+.ch-collection-panel {
+  order: 2; width: min(100%, 610px); position: relative; z-index: 20;
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+}
+@media (min-width: 1024px) {
+  .ch-collection-panel { align-items: flex-start; text-align: left; }
+}
+.ch-collection-kicker {
+  margin: 0 0 12px; color: var(--gold); font-size: 11px; font-weight: 600;
+  letter-spacing: 3px; text-transform: uppercase;
+}
+.ch-collection-panel h3 {
+  margin: 0; color: #fff; font-family: var(--font-title); font-size: clamp(31px, 4vw, 58px);
+  line-height: 1.1; font-weight: 700;
+}
+.ch-collection-panel h3 span {
+  background: linear-gradient(180deg, var(--gold-light) 0%, var(--gold) 100%);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+.ch-collection-description {
+  max-width: 540px; margin: 18px 0 22px; color: rgba(255,255,255,0.72);
+  font-size: 15px; font-weight: 300; line-height: 1.65;
+}
+.ch-collection-badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 9px; margin-bottom: 25px; }
+@media (min-width: 1024px) { .ch-collection-badges { justify-content: flex-start; } }
+.ch-collection-badges span {
+  display: inline-flex; align-items: center; gap: 7px; padding: 8px 11px; border: 1px solid var(--gold-border);
+  border-radius: 999px; color: #e9e9e9; font-size: 11px; white-space: nowrap;
+  background: rgba(212,175,55,0.05);
+}
+.ch-collection-badges i { color: var(--gold); }
+.ch-collection-dropdown { z-index: 60; }
+.ch-collection-dropdown .btn { min-width: 210px; }
+@media (max-width: 767px) {
+  .ch-collection-panel { padding: 0 12px; }
+  .ch-collection-description { display: none; }
+  .ch-collection-badges { margin-bottom: 18px; }
+  .ch-collection-badges span { font-size: 10px; padding: 7px 9px; }
+}
+
+/* Mockup: vitrine com a joia real */
+.ch-mockup-wrap {
+  order: 2; position: relative; width: 100%; height: 340px;
+  display: flex; align-items: center; justify-content: center; z-index: 10;
+  perspective: 1000px;
+}
+@media (min-width: 1024px) { .ch-mockup-wrap { height: 560px; } }
+
+.ch-mockup-inner {
+  position: relative; width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  transform: scale(0.72);
+}
+@media (min-width: 768px) { .ch-mockup-inner { transform: scale(0.9); } }
+@media (min-width: 1024px) { .ch-mockup-inner { transform: scale(1); } }
+
+.ch-case {
+  position: relative;
+  width: 270px; height: 540px;
+  border-radius: 2.4rem;
+  background-color: #0c0c0c;
+  box-shadow:
+    inset 0 0 0 2px var(--gold-border),
+    inset 0 0 0 7px #000,
+    0 40px 80px -15px rgba(0,0,0,0.9),
+    0 15px 25px -5px rgba(0,0,0,0.7);
+  will-change: transform;
+  transform-style: preserve-3d;
+}
+
+.ch-case-screen {
+  position: absolute; inset: 7px; border-radius: 2rem; overflow: hidden;
+  background: #0b0a08;
+  box-shadow: inset 0 0 15px rgba(0,0,0,1);
+}
+
+.ch-case-photo {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  filter: saturate(1.05) contrast(1.05);
+}
+
+.ch-case-glare {
+  position: absolute; inset: 0;
+  background: linear-gradient(110deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0) 45%);
+}
+
+.ch-case-topline {
+  position: absolute; top: 14px; left: 50%; transform: translateX(-50%);
+  width: 90px; height: 5px; border-radius: 999px; background: rgba(212,175,55,0.5);
+}
+
+.ch-case-content {
+  position: absolute; left: 0; right: 0; bottom: 0; padding: 18px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+
+.ch-ring-badge {
+  align-self: center; margin-bottom: 6px;
+  width: 128px; height: 128px; position: relative;
+  display: flex; align-items: center; justify-content: center;
+  filter: drop-shadow(0 15px 25px rgba(0,0,0,0.7));
+}
+.ch-ring-badge svg { position: absolute; inset: 0; width: 100%; height: 100%; transform: rotate(-90deg); }
+.ch-ring-badge .ch-ring-track { stroke: rgba(212,175,55,0.12); }
+.ch-ring-badge .ch-ring-progress {
+  stroke: var(--gold); stroke-linecap: round;
+  stroke-dasharray: 340; stroke-dashoffset: 340;
+}
+.ch-ring-center { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; }
+.ch-ring-center .ch-counter { font-size: 30px; font-weight: 800; color: #fff; letter-spacing: -1px; }
+.ch-ring-center .ch-ring-label {
+  font-size: 8px; color: rgba(212,175,55,0.65); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; margin-top: 2px;
+}
+
+.ch-widget {
+  background: linear-gradient(180deg, rgba(212,175,55,0.06) 0%, rgba(212,175,55,0.01) 100%);
+  border: 1px solid rgba(212,175,55,0.08);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3), inset 0 1px 1px rgba(255,255,255,0.05);
+  border-radius: 16px; padding: 10px 12px;
+  display: flex; align-items: center; gap: 10px;
+}
+.ch-widget .ch-w-icon {
+  width: 34px; height: 34px; border-radius: 10px; flex-shrink: 0;
+  background: linear-gradient(135deg, rgba(212,175,55,0.25) 0%, rgba(212,175,55,0.04) 100%);
+  border: 1px solid rgba(212,175,55,0.25);
+  display: flex; align-items: center; justify-content: center; color: var(--gold-light);
+}
+.ch-widget .ch-w-lines { flex: 1; display: flex; flex-direction: column; gap: 6px; }
+.ch-widget .ch-w-line { height: 6px; border-radius: 999px; background: rgba(230,230,230,0.85); }
+.ch-widget .ch-w-line.short { width: 55%; background: rgba(160,160,160,0.6); }
+
+/* Badges flutuantes (vidro) */
+.ch-floating-badge {
+  position: absolute; z-index: 30;
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 14px; border-radius: 18px;
+  background: linear-gradient(135deg, rgba(212,175,55,0.10) 0%, rgba(255,255,255,0.01) 100%);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 0 0 1px rgba(212,175,55,0.18), 0 25px 50px -12px rgba(0,0,0,0.8), inset 0 1px 1px rgba(255,255,255,0.15);
+}
+.ch-badge-1 { top: 24px; left: -12px; }
+.ch-badge-2 { bottom: 60px; right: -12px; }
+@media (min-width: 1024px) {
+  .ch-badge-1 { top: 48px; left: -70px; }
+  .ch-badge-2 { bottom: 90px; right: -70px; }
+}
+.ch-floating-badge .ch-badge-icon {
+  width: 34px; height: 34px; border-radius: 999px; flex-shrink: 0;
+  background: linear-gradient(180deg, rgba(212,175,55,0.3) 0%, rgba(0,0,0,0.2) 100%);
+  border: 1px solid rgba(212,175,55,0.35);
+  display: flex; align-items: center; justify-content: center; font-size: 16px;
+}
+.ch-floating-badge p { margin: 0; }
+.ch-floating-badge .ch-badge-title { color: #fff; font-size: 13px; font-weight: 700; }
+.ch-floating-badge .ch-badge-sub { color: rgba(212,175,55,0.55); font-size: 11px; font-weight: 500; }
+
+/* Texto lateral (dentro do cartão) */
+.ch-card-copy {
+  order: 3; width: 100%; z-index: 20;
+  display: flex; flex-direction: column; justify-content: center; text-align: center;
+}
+@media (min-width: 1024px) { .ch-card-copy { order: 1; text-align: left; } }
+
+.ch-card-copy h3 {
+  font-family: var(--font-title);
+  color: #fff; font-size: 24px; font-weight: 700; margin: 0 0 4px;
+}
+@media (min-width: 1024px) { .ch-card-copy h3 { font-size: 32px; margin-bottom: 18px; } }
+
+.ch-card-copy p {
+  display: none;
+  color: rgba(212,175,55,0.7); font-size: 15px; font-weight: 300; line-height: 1.7;
+  max-width: 380px; margin: 0 auto;
+}
+@media (min-width: 768px) {
+  .ch-card-copy p { display: block; }
+}
+@media (min-width: 1024px) { .ch-card-copy p { margin: 0; } }
+.ch-card-copy strong { color: #fff; font-weight: 600; }

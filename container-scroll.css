@@ -1,0 +1,106 @@
+/* =====================================================================
+   CONTAINER SCROLL — Alisson de Paula Jóias
+   Adaptação vanilla (CSS + GSAP/ScrollTrigger) do componente
+   "container-scroll-animation" (Aceternity/framer-motion) para o
+   stack HTML/CSS/JS do site, na paleta ouro/preto já existente.
+
+   Duas peças:
+   1) .container-scroll-*  → efeito completo (pin + rotateX + scale),
+      usado na seção "Sobre" como grande destaque, tal como no demo
+      original (título que sobe + card 3D que "deita" ao rolar).
+   2) .tilt-reveal          → versão leve (sem pin), usada em
+      diferenciais e depoimentos: o elemento nasce levemente
+      inclinado em 3D e "deita" suavemente ao entrar na tela.
+===================================================================== */
+
+/* ---------- 1) CONTAINER SCROLL COMPLETO (seção Sobre) ---------- */
+
+.container-scroll-wrap {
+  position: relative;
+  min-height: 44rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 8px;
+}
+@media (min-width: 768px) {
+  .container-scroll-wrap { min-height: 58rem; padding: 60px 40px; }
+}
+
+.container-scroll-perspective {
+  width: 100%;
+  position: relative;
+  padding: 20px 0 60px;
+}
+@media (min-width: 768px) { .container-scroll-perspective { padding: 40px 0 80px; } }
+
+.container-scroll-header {
+  max-width: 760px;
+  margin: 0 auto 8px;
+  text-align: center;
+  will-change: transform;
+}
+
+.container-scroll-card {
+  position: relative;
+  max-width: 1100px;
+  margin: -20px auto 0;
+  width: 100%;
+  min-height: 22rem;
+  border: 3px solid var(--gold-border);
+  background: linear-gradient(160deg, #151005 0%, #0a0a0a 100%);
+  border-radius: 30px;
+  padding: 10px;
+  box-shadow:
+    0 0 #0000004d, 0 9px 20px #0000004a, 0 37px 37px #00000042,
+    0 84px 50px #00000026, 0 149px 60px #0000000a;
+  will-change: transform;
+  transform-style: preserve-3d;
+}
+@media (min-width: 768px) { .container-scroll-card { min-height: 30rem; padding: 20px; } }
+
+.container-scroll-card-inner {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 20px;
+  background: var(--bg-card-image);
+  border: 1px solid var(--border-color);
+}
+
+.container-scroll-card-inner img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 40px;
+  display: block;
+  background: var(--bg-card-image);
+}
+
+/* ---------- 2) TILT-REVEAL LEVE (diferenciais, depoimentos) ---------- */
+
+.tilt-reveal {
+  opacity: 0;
+  transform: perspective(1200px) rotateX(16deg) scale(0.94) translateY(28px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-style: preserve-3d;
+}
+
+.tilt-reveal.is-visible {
+  opacity: 1;
+  transform: perspective(1200px) rotateX(0deg) scale(1) translateY(0);
+}
+
+.diferenciais-grid,
+.depoimentos-grid {
+  perspective: 1600px;
+}
+
+/* Respeita preferência por menos animação */
+@media (prefers-reduced-motion: reduce) {
+  .tilt-reveal {
+    transition: none;
+    transform: none;
+    opacity: 1;
+  }
+}

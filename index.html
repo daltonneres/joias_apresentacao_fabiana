@@ -35,6 +35,8 @@
     href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="cinematic-hero.css">
+  <link rel="stylesheet" href="container-scroll.css">
 </head>
 
 <body>
@@ -42,161 +44,95 @@
   <!-- ================================
      NAVBAR
 ================================= -->
-  <header class="navbar" id="navbar">
-    <div class="navbar-inner">
-      <a href="#" class="navbar-logo">Alisson <span>de Paula</span></a>
+  <!-- ================================
+     CINEMATIC HERO (abertura de impacto)
+================================= -->
+  <section class="cinematic-hero" id="cinematic-hero">
+    <div class="ch-grain" aria-hidden="true"></div>
+    <div class="ch-grid" aria-hidden="true"></div>
 
-      <nav class="navbar-links">
-        <a href="#sobre">Sobre</a>
-        <a href="#produtos">Coleção</a>
-        <a href="#depoimentos">Depoimentos</a>
-      </nav>
-
-      <a href="https://wa.me/5546999253231?text=Olá,%20tudo%20bem?%20Vim%20do%20site%20e%20tenho%20interesse%20em%20ver%20quais%20as%20joias%20que%20você%20tem%20disponível."
-        class="btn navbar-cta" target="_blank">
-        <i class="fa-brands fa-whatsapp"></i> Fale Conosco
-      </a>
-
-      <button class="navbar-toggle" id="navbarToggle" aria-label="Abrir menu" aria-expanded="false">
-        <i class="fa-solid fa-bars"></i>
-      </button>
+    <!-- Camada de fundo: texto de abertura -->
+    <div class="ch-text-wrapper">
+      <h1 class="ch-line1 gsap-reveal">Cada peça carrega</h1>
+      <h1 class="ch-line2 gsap-reveal">uma história eterna.</h1>
     </div>
 
-    <nav class="navbar-mobile" id="navbarMobile">
-      <a href="#sobre">Sobre</a>
-      <a href="#produtos">Coleção</a>
-      <a href="#depoimentos">Depoimentos</a>
-      <a href="https://wa.me/5546999253231?text=Olá,%20tudo%20bem?%20Vim%20do%20site%20e%20tenho%20interesse%20em%20ver%20quais%20as%20joias%20que%20você%20tem%20disponível."
-        target="_blank"><i class="fa-brands fa-whatsapp"></i> Fale Conosco</a>
-    </nav>
-  </header>
+    <!-- Camada de primeiro plano: cartão físico dourado -->
+    <div class="ch-card-layer">
+      <div class="ch-main-card gsap-reveal">
+        <div class="ch-card-sheen" aria-hidden="true"></div>
 
-  <!-- ================================
-     HERO
-================================= -->
-  <section class="hero">
-    <div class="overlay"></div>
+        <div class="ch-card-grid">
 
-    <div class="hero-content">
-      <p class="subtitle">ELEGÂNCIA • LUXO • SOFISTICAÇÃO</p>
+          <!-- Marca -->
+          <div class="ch-card-brand">
+            <h2>Alisson<br>de Paula</h2>
+          </div>
 
-      <h1>Jóias feitas para<br>momentos <span class="text-gold-shine">eternos</span></h1>
+          <!-- Coleção integrada à animação: substitui o mockup de celular -->
+          <div class="ch-collection-panel">
+            <p class="ch-collection-kicker">Elegância • Luxo • Sofisticação</p>
+            <h3>Joias feitas para momentos <span>eternos</span></h3>
+            <p class="ch-collection-description">Descubra joias exclusivas em ouro 18K, com acabamento premium, brilho sofisticado e design refinado.</p>
+            <div class="ch-collection-badges">
+              <span><i class="fa-solid fa-gem"></i> Ouro 18K</span>
+              <span><i class="fa-solid fa-shield-halved"></i> Garantia vitalícia</span>
+              <span><i class="fa-solid fa-wand-magic-sparkles"></i> Design exclusivo</span>
+            </div>
+            <div class="dropdown ch-collection-dropdown">
+              <button class="btn dropdown-btn" type="button">VER COLEÇÃO <i class="fa-solid fa-chevron-up"></i></button>
+              <div class="dropdown-content">
+                <a href="#aneis"><i class="fa-solid fa-ring"></i> Anéis</a>
+                <a href="#formatura"><i class="fa-solid fa-graduation-cap"></i> Anéis de Formatura</a>
+                <a href="#aliancas"><i class="fa-solid fa-heart"></i> Alianças</a>
+                <a href="#solitarios"><i class="fa-solid fa-gem"></i> Solitários</a>
+                <a href="#correntes-com-pingente"><i class="fa-solid fa-link"></i> Correntes</a>
+                <a href="#pulseiras"><i class="fa-solid fa-circle-nodes"></i> Pulseiras</a>
+                <a href="#pingentes"><i class="fa-solid fa-star"></i> Pingentes</a>
+                <a href="#brincos"><i class="fa-solid fa-droplet"></i> Brincos</a>
+                <a href="#produtos"><i class="fa-solid fa-grid-2"></i> Ver todas</a>
+              </div>
+            </div>
+          </div>
 
-      <p class="description">
-        Descubra jóias exclusivas em ouro 18K com acabamento premium,
-        brilho sofisticado e design refinado.
-      </p>
-
-      <div class="hero-badges">
-        <span><i class="fa-solid fa-gem"></i> Ouro 18K</span>
-        <span><i class="fa-solid fa-shield-halved"></i> Garantia Vitalícia</span>
-        <span><i class="fa-solid fa-wand-magic-sparkles"></i> Design Exclusivo</span>
-      </div>
-
-      <!-- BOTÃO + MENU DROPDOWN -->
-      <div class="dropdown">
-        <button class="btn dropdown-btn">VER COLEÇÃO <i class="fa-solid fa-chevron-up"></i></button>
-        <div class="dropdown-content">
-          <a href="#aneis"><i class="fa-solid fa-ring"></i> Anéis</a>
-          <a href="#formatura"><i class="fa-solid fa-graduation-cap"></i> Anéis de Formatura</a>
-          <a href="#aliancas"><i class="fa-solid fa-heart"></i> Alianças</a>
-          <a href="#solitarios"><i class="fa-solid fa-gem"></i> Solitários</a>
-          <a href="#correntes-com-pingente"><i class="fa-solid fa-link"></i> Correntes</a>
-          <a href="#pulseiras"><i class="fa-solid fa-circle-nodes"></i> Pulseiras</a>
-          <a href="#pingentes"><i class="fa-solid fa-star"></i> Pingentes</a>
-          <a href="#brincos"><i class="fa-solid fa-droplet"></i> Brincos</a>
-          <a href="#produtos"><i class="fa-solid fa-grid-2"></i> Ver Todas</a>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ================================
-     DIFERENCIAIS
+     A ESSÊNCIA DA MARCA
 ================================= -->
-  <section class="diferenciais">
-    <div class="diferenciais-grid">
-
-      <div class="diferencial-item">
-        <div class="diferencial-icon">💎</div>
-        <h4>Ouro 18K Certificado</h4>
-        <p>Todas as peças em ouro de lei com certificação de qualidade e autenticidade garantida.</p>
-      </div>
-
-      <div class="diferencial-item">
-        <div class="diferencial-icon">🛡️</div>
-        <h4>Garantia Vitalícia</h4>
-        <p>Comprando conosco, sua jóia tem garantia para sempre. Confiança total em cada peça.</p>
-      </div>
-
-      <div class="diferencial-item">
-        <div class="diferencial-icon">✨</div>
-        <h4>Design Exclusivo</h4>
-        <p>Peças únicas com acabamento refinado, desenvolvidas para eternizar momentos especiais.</p>
-      </div>
-
-      <div class="diferencial-item">
-        <div class="diferencial-icon">💬</div>
-        <h4>Atendimento Personalizado</h4>
-        <p>Atendimento direto e humanizado via WhatsApp. Encontramos a jóia perfeita para você.</p>
-      </div>
-
+  <section class="brand-story" id="sobre">
+    <div class="brand-story-intro">
+      <p class="mini-title">A ESSÊNCIA ALISSON DE PAULA</p>
+      <h2>Mais que uma joia,<br><span>uma história para ficar.</span></h2>
+      <p>Escolhas marcantes merecem ouro verdadeiro, acabamento impecável e uma experiência à altura do momento.</p>
     </div>
-  </section>
 
-  <!-- ================================
-     CONTADORES
-================================= -->
-  <section class="contadores">
-    <div class="contadores-grid">
-      <div class="contador-item">
-        <span class="contador-num" data-target="500">0</span><span class="contador-suf">+</span>
-        <p>Clientes Satisfeitos</p>
-      </div>
-      <div class="contador-item">
-        <span class="contador-num" data-target="10">0</span><span class="contador-suf">+</span>
-        <p>Anos de Experiência</p>
-      </div>
-      <div class="contador-item">
-        <span class="contador-num" data-target="200">0</span><span class="contador-suf">+</span>
-        <p>Modelos Disponíveis</p>
-      </div>
-      <div class="contador-item">
-        <span class="contador-num" data-target="100">0</span><span class="contador-suf">%</span>
-        <p>Ouro 18K Garantido</p>
-      </div>
+    <div class="brand-pillars">
+      <article class="brand-pillar tilt-reveal" style="transition-delay:0s;"><i class="fa-solid fa-gem" aria-hidden="true"></i><div><h3>Ouro 18K certificado</h3><p>Autenticidade e qualidade em cada peça.</p></div></article>
+      <article class="brand-pillar tilt-reveal" style="transition-delay:0.1s;"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i><div><h3>Garantia vitalícia</h3><p>Segurança para acompanhar sua história.</p></div></article>
+      <article class="brand-pillar tilt-reveal" style="transition-delay:0.2s;"><i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i><div><h3>Design exclusivo</h3><p>Detalhes pensados para serem únicos.</p></div></article>
+      <article class="brand-pillar tilt-reveal" style="transition-delay:0.3s;"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i><div><h3>Atendimento próximo</h3><p>Orientação pessoal do início à escolha.</p></div></article>
     </div>
-  </section>
 
-  <!-- ================================
-     SOBRE
-================================= -->
-  <section class="sobre" id="sobre">
-    <div class="container">
+    <div class="brand-numbers" aria-label="Números da Alisson de Paula Joias">
+      <div class="brand-number"><span class="contador-num" data-target="500">0</span><span class="contador-suf">+</span><p>clientes atendidos</p></div>
+      <div class="brand-number"><span class="contador-num" data-target="10">0</span><span class="contador-suf">+</span><p>anos de experiência</p></div>
+      <div class="brand-number"><span class="contador-num" data-target="200">0</span><span class="contador-suf">+</span><p>modelos disponíveis</p></div>
+      <div class="brand-number"><span class="contador-num" data-target="100">0</span><span class="contador-suf">%</span><p>ouro 18K garantido</p></div>
+    </div>
 
-      <div class="sobre-img">
-        <img src="logo.jpg" alt="Alisson de Paula Joias" title="Alisson de Paula Joias" loading="lazy">
+    <div class="brand-story-detail">
+      <div class="brand-mark tilt-reveal"><img src="logo.jpg" alt="Marca Alisson de Paula Joias" loading="lazy"></div>
+      <div class="brand-story-copy">
+        <p class="mini-title">NOSSA JOALHERIA</p>
+        <h3>Qualidade que você vê. <span>Confiança que você sente.</span></h3>
+        <p>Selecionamos joias em ouro 18K com brilho, proporção e acabamento refinado — para transformar celebrações em lembranças que permanecem.</p>
+        <p>Há mais de 10 anos, atendemos Salto do Lontra, toda a região e clientes de todo o Paraná com atenção genuína em cada escolha.</p>
+        <a href="https://wa.me/5546999253231?text=Olá,%20gostaria%20de%20conhecer%20mais%20sobre%20as%20jóias." class="btn brand-story-btn" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i>Fale Conosco</a>
       </div>
-
-      <div class="sobre-text">
-        <p class="mini-title">SOBRE NOSSA JOALHERIA</p>
-        <h2>Qualidade premium<br>em cada detalhe</h2>
-        <p>
-          Trabalhamos com jóias cuidadosamente selecionadas,
-          oferecendo sofisticação, brilho intenso e acabamento refinado
-          para eternizar momentos especiais.
-        </p>
-        <p style="margin-top:16px;">
-          Com mais de 10 anos no mercado, somos referência em jóias em ouro 18K
-          em Salto do Lontra-PR e região, atendendo clientes de todo o Paraná com
-          dedicação e confiança.
-        </p>
-        <a href="https://wa.me/5546999253231?text=Olá,%20gostaria%20de%20conhecer%20mais%20sobre%20as%20jóias."
-          class="btn sobre-btn" target="_blank">
-          <i class="fa-brands fa-whatsapp"></i> Falar Conosco
-        </a>
-      </div>
-
     </div>
   </section>
 
@@ -2123,7 +2059,7 @@
 
     <div class="depoimentos-grid">
 
-      <div class="depoimento-card">
+      <div class="depoimento-card tilt-reveal" style="transition-delay:0s;">
         <div class="depoimento-stars">★★★★★</div>
         <p>"Comprei minha aliança de casamento com o Alisson e foi a melhor decisão. Qualidade impecável, ouro lindo e
           atendimento perfeito. Super recomendo!"</p>
@@ -2136,7 +2072,7 @@
         </div>
       </div>
 
-      <div class="depoimento-card">
+      <div class="depoimento-card tilt-reveal" style="transition-delay:0.15s;">
         <div class="depoimento-stars">★★★★★</div>
         <p>"Presente perfeito para o aniversário da minha esposa. O anel solitário ficou lindo, ela amou! Atendimento
           via WhatsApp super rápido e profissional."</p>
@@ -2149,7 +2085,7 @@
         </div>
       </div>
 
-      <div class="depoimento-card">
+      <div class="depoimento-card tilt-reveal" style="transition-delay:0.3s;">
         <div class="depoimento-stars">★★★★★</div>
         <p>"Jóias de altíssima qualidade! Comprei uma corrente e uma pulseira, as duas simplesmente perfeitas. A
           garantia vitalícia dá total segurança na compra."</p>
@@ -2182,6 +2118,7 @@
      RODAPÉ
 ================================= -->
   <footer class="footer">
+    <div class="footer-glow" aria-hidden="true"></div>
     <div class="footer-top">
 
       <div class="footer-col footer-brand">
@@ -2227,9 +2164,12 @@
 
       <p class="copyright">
         © <span id="footerYear">2026</span> Alisson de Paula. Todos os direitos reservados. ·
-        Conteúdo, fotos e marca protegidos por direitos autorais ·
-        <a href="privacidade.html">Política de Privacidade</a> · Site em conformidade com a LGPD (Lei nº 13.709/2018)
+        <a href="privacidade.html">Política de Privacidade</a> · Site em conformidade com a LGPD
       </p>
+
+      <button class="cookie-preferences" id="cookiePreferences" type="button">
+        <i class="fa-solid fa-cookie-bite"></i> Preferências de cookies
+      </button>
 
       <p class="developer">
         Desenvolvido por
@@ -2248,6 +2188,10 @@
     </button>
     <img id="lightboxImg" src="" alt="Joia em destaque">
   </div>
+
+  <button class="back-to-top" id="backToTop" type="button" aria-label="Voltar ao início" title="Voltar ao início">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
 
   <!-- ================================
      BANNER DE COOKIES (LGPD)
@@ -2274,6 +2218,14 @@
   </div>
 
   <!-- ================================
+     CINEMATIC HERO — dependências (GSAP)
+================================= -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="cinematic-hero.js"></script>
+  <script src="container-scroll.js"></script>
+
+  <!-- ================================
      JAVASCRIPT
 ================================= -->
   <script>
@@ -2296,7 +2248,7 @@
       });
     }
 
-    const contadoresSection = document.querySelector('.contadores');
+    const contadoresSection = document.querySelector('.brand-numbers');
     const contadoresObserver = new IntersectionObserver(entries => {
       if (entries[0].isIntersecting) {
         animateCounters();
@@ -2349,47 +2301,22 @@
       }
     });
 
+    /* --- VOLTAR AO INÍCIO --- */
+    const backToTop = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      backToTop.classList.toggle('show', window.scrollY > 520);
+    }, { passive: true });
+    backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
     /* --- RODAPÉ: ano atual automático --- */
     const footerYear = document.getElementById('footerYear');
     if (footerYear) footerYear.textContent = new Date().getFullYear();
-
-    /* --- NAVBAR: efeito ao rolar --- */
-    const navbar = document.getElementById('navbar');
-
-    function handleNavbarScroll() {
-      if (window.scrollY > 40) {
-        navbar.classList.add('scrolled');
-      } else {
-        navbar.classList.remove('scrolled');
-      }
-    }
-    handleNavbarScroll();
-    window.addEventListener('scroll', handleNavbarScroll);
-
-    /* --- NAVBAR: menu mobile --- */
-    const navbarToggle = document.getElementById('navbarToggle');
-    const navbarMobile = document.getElementById('navbarMobile');
-
-    navbarToggle.addEventListener('click', () => {
-      const isOpen = navbarMobile.classList.toggle('show');
-      navbarToggle.setAttribute('aria-expanded', isOpen);
-      navbarToggle.innerHTML = isOpen
-        ? '<i class="fa-solid fa-xmark"></i>'
-        : '<i class="fa-solid fa-bars"></i>';
-    });
-
-    navbarMobile.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        navbarMobile.classList.remove('show');
-        navbarToggle.setAttribute('aria-expanded', 'false');
-        navbarToggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
-      });
-    });
 
     /* --- BANNER DE COOKIES (LGPD) --- */
     const cookieBanner = document.getElementById('cookieBanner');
     const cookieAccept = document.getElementById('cookieAccept');
     const cookieDecline = document.getElementById('cookieDecline');
+    const cookiePreferences = document.getElementById('cookiePreferences');
     const COOKIE_KEY = 'alissonJoiasCookieConsent';
 
     function showCookieBanner() {
@@ -2405,6 +2332,10 @@
 
     cookieAccept.addEventListener('click', () => hideCookieBanner('accepted'));
     cookieDecline.addEventListener('click', () => hideCookieBanner('declined'));
+    cookiePreferences.addEventListener('click', () => {
+      localStorage.removeItem(COOKIE_KEY);
+      cookieBanner.classList.add('show');
+    });
 
     showCookieBanner();
   </script>
